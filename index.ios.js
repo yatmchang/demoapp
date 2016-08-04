@@ -10,11 +10,26 @@ import {
 var ImagePicker = require('react-native-image-picker');
 var Platform = require('react-native').Platform;
 
+
 class demoroom extends Component {
   constructor() {
     super();
-    this.state = {avatarSource: null}
+    this.state = {avatarSource: null, arrayOfPictures: []}
   }
+
+  componentDidMount(){
+    fetch('http://localhost:3000/snaps.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      var tempArray = []
+      for(var i=0; i < responseJson.length; i++){
+        tempArray.push(responseJson[i].picture.url)
+      }
+      this.setState({arrayOfPictures: tempArray})
+    })
+    .done()
+  };
+
   picker() {
     var options = {
       title: 'Select Fit',
@@ -41,8 +56,6 @@ class demoroom extends Component {
           var source = {uri: response.uri, isStatic: true};
         }
 
-        console.log(response.data)
-        console.log('kklolol', {uri: 'data:image/jpeg;base64,' + response.data})
         this.setState({
           avatarSource: source
         });
@@ -54,21 +67,11 @@ class demoroom extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            title: 'hi',
             picture: 'data:image/jpeg;base64,' + response.data
           })
         })
       }
     });
-  }
-
-  render() {
-    return <View style={styles.container}>
-        <Image
-        style={styles.preview}
-        source={this.state.avatarSource} />
-        {this.uploadButton()}
-      </View>
   }
 
   uploadButton() {
@@ -81,6 +84,15 @@ class demoroom extends Component {
       </Text>
     </TouchableHighlight>
   }
+
+  render() {
+    return <View style={styles.container}>
+    <View style={styles.preview}>
+
+    </View>
+    {this.uploadButton()}
+    </View>
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -90,11 +102,12 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+    backgroundColor: 'orange',
     justifyContent: 'center',
     alignItems: 'center'
   },
   preview: {
-    flex: 1
+    flex: 7
   }
 });
 
