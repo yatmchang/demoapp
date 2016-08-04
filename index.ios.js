@@ -80,7 +80,7 @@ class demoroom extends Component {
     underlayColor='gray'
     onPress={ () => this.picker() }
     style={styles.button}>
-      <Text>
+      <Text style={{color:'#9a8d72'}}>
         Upload
       </Text>
     </TouchableHighlight>
@@ -89,15 +89,13 @@ class demoroom extends Component {
   galleryMap(){
     var galleryArray = []
     for(var i=0; i < this.state.arrayOfPictures.length; i++){
-
-          {galleryArray.push(
-            <Col sm={4} key={i}>
-            <Image
-            style={styles.base}
-
-            source={{uri: 'http://localhost:3000' + this.state.arrayOfPictures[i]}} />
-            </Col>)}
-
+      {galleryArray.push(
+        <Col sm={4} key={i}>
+          <Image
+          style={styles.base}
+          source={{uri: 'http://localhost:3000' + this.state.arrayOfPictures[i]}} />
+        </Col>)
+      }
     }
     return galleryArray
   }
@@ -106,18 +104,30 @@ class demoroom extends Component {
     return (<View style={styles.container}>
       <View style={styles.header}/>
       <View style={styles.preview}>
+      <ScrollView
+          ref={(scrollView) => { _scrollView = scrollView; }}
+          automaticallyAdjustContentInsets={false}
+          scrollEventThrottle={200}
+          style={styles.scrollView}>
         <Row size={12}>
           {this.galleryMap()}
         </Row>
+        </ScrollView>
       </View>
       {this.uploadButton()}
     </View>)
   }
 }
 const styles = StyleSheet.create({
+  scrollView: {
+    height: 300
+  },
   base: {
     flex: 1,
-    height: 45
+    height: 45,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#fcfcfc'
   },
   container: {
     flex: 1,
@@ -129,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   button: {
-    flex: 5,
+    flex: 3,
     backgroundColor: '#f9f2ec',
     justifyContent: 'center',
     alignItems: 'center'
