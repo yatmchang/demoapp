@@ -90,7 +90,21 @@ class demoroom extends Component {
     return (<View style={styles.container}>
       <View style={styles.header}/>
       <View style={styles.preview}>
-          <Image style={styles.base} source={{uri:'http://localhost:3000/uploads/snap/picture/49/file.jpeg'}} />
+        <Row size={12}>
+            <Col sm={4} md={4} lg={3}>
+              <Text>
+                Hi
+              </Text>
+            </Col>
+            <Col sm={4} md={4} lg={3}>
+              <Text>
+                Hi
+              </Text>
+            </Col>
+            <Col sm={4} md={4} lg={3}>
+                <Image style={styles.base} source={{uri: 'http://localhost:3000/' + this.state.arrayOfPictures[1]}} />
+            </Col>
+        </Row>
       </View>
       {this.uploadButton()}
     </View>)
@@ -98,7 +112,8 @@ class demoroom extends Component {
 }
 const styles = StyleSheet.create({
   base: {
-    flex: 1
+    flex: 1,
+    height: 150
   },
   container: {
     flex: 1,
