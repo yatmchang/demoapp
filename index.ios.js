@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -23,7 +24,6 @@ class demoroom extends Component {
     .then((responseJson) => {
       var tempArray = []
       for(var i=0; i < responseJson.length; i++){
-        console.log(responseJson[i])
         tempArray.push(responseJson[i].picture.url)
       }
       this.setState({arrayOfPictures: tempArray})
@@ -86,24 +86,28 @@ class demoroom extends Component {
     </TouchableHighlight>
   }
 
+  galleryMap(){
+    var galleryArray = []
+    for(var i=0; i < this.state.arrayOfPictures.length; i++){
+
+          {galleryArray.push(
+            <Col sm={4} key={i}>
+            <Image
+            style={styles.base}
+
+            source={{uri: 'http://localhost:3000' + this.state.arrayOfPictures[i]}} />
+            </Col>)}
+
+    }
+    return galleryArray
+  }
+
   render() {
     return (<View style={styles.container}>
       <View style={styles.header}/>
       <View style={styles.preview}>
         <Row size={12}>
-            <Col sm={4} md={4} lg={3}>
-              <Text>
-                Hi
-              </Text>
-            </Col>
-            <Col sm={4} md={4} lg={3}>
-              <Text>
-                Hi
-              </Text>
-            </Col>
-            <Col sm={4} md={4} lg={3}>
-                <Image style={styles.base} source={{uri: 'http://localhost:3000/' + this.state.arrayOfPictures[1]}} />
-            </Col>
+          {this.galleryMap()}
         </Row>
       </View>
       {this.uploadButton()}
@@ -113,7 +117,7 @@ class demoroom extends Component {
 const styles = StyleSheet.create({
   base: {
     flex: 1,
-    height: 150
+    height: 45
   },
   container: {
     flex: 1,
