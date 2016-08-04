@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 var ImagePicker = require('react-native-image-picker');
 var Platform = require('react-native').Platform;
-
+import {Column as Col, Row} from 'react-native-flexbox-grid';
 
 class demoroom extends Component {
   constructor() {
@@ -23,6 +23,7 @@ class demoroom extends Component {
     .then((responseJson) => {
       var tempArray = []
       for(var i=0; i < responseJson.length; i++){
+        console.log(responseJson[i])
         tempArray.push(responseJson[i].picture.url)
       }
       this.setState({arrayOfPictures: tempArray})
@@ -86,28 +87,36 @@ class demoroom extends Component {
   }
 
   render() {
-    return <View style={styles.container}>
-    <View style={styles.preview}>
-
-    </View>
-    {this.uploadButton()}
-    </View>
+    return (<View style={styles.container}>
+      <View style={styles.header}/>
+      <View style={styles.preview}>
+          <Image style={styles.base} source={{uri:'http://localhost:3000/uploads/snap/picture/49/file.jpeg'}} />
+      </View>
+      {this.uploadButton()}
+    </View>)
   }
 }
 const styles = StyleSheet.create({
+  base: {
+    flex: 1
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'yellow'
+    backgroundColor: '#fcfcfc'
+  },
+  header: {
+    backgroundColor: '#f9f2ec',
+    flex: 1
   },
   button: {
-    flex: 1,
-    backgroundColor: 'orange',
+    flex: 5,
+    backgroundColor: '#f9f2ec',
     justifyContent: 'center',
     alignItems: 'center'
   },
   preview: {
-    flex: 7
+    flex: 30
   }
 });
 
