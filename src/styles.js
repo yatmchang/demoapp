@@ -5,9 +5,13 @@ module.exports = StyleSheet.create({
   scrollView: {
     height: 300
   },
+  frame: {
+    flex: 1,
+    height: 35
+  },
   base: {
     flex: 1,
-    height: 30,
+    height: 35,
     borderWidth: 1,
     borderRadius: 2,
     borderColor: '#fcfcfc'
@@ -21,6 +25,9 @@ module.exports = StyleSheet.create({
     backgroundColor: '#f9f2ec',
     flex: 1
   },
+  footer: {
+    flex: 2
+  },
   button: {
     flex: 3,
     backgroundColor: '#f9f2ec',
@@ -28,7 +35,7 @@ module.exports = StyleSheet.create({
     alignItems: 'center'
   },
   main: {
-    flex: 30,
+    flex: 40,
     height: 1
   },
   navbar: {
@@ -38,5 +45,19 @@ module.exports = StyleSheet.create({
   },
   navBarButton:{
     alignItems: 'center'
+  },
+
+  list: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  item: {
+    margin: 1,
+    width: 136,
+    height: 170
+  },
+  listView: {
+      backgroundColor: '#fcfcfc'
   }
 });

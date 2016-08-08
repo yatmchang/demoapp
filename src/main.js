@@ -5,8 +5,8 @@ import DemoRoom from './demoroom';
 import Profile from './profile';
 import ImagePicker from 'react-native-image-picker';
 var Platform = require('react-native').Platform;
-
-
+import DemoRoomv from './demoroomv';
+import ShowRoom from './showroom';
 
 class Main extends Component {
   constructor() {
@@ -68,13 +68,14 @@ class Main extends Component {
 
 
   renderScene(route, navigator){
-    return createElement(route.component, {navigator})
+    return createElement(route.component, {navigator: navigator, look: route.look, picture: route.picture})
   }
 
   render(){
     const routes = [
-      {title: 'demoroom', component: DemoRoom, index: 0},
-      {title: 'profile', component: Profile, index: 1},
+      {title: 'demoroomv', component: DemoRoomv, index: 0},
+      {title: 'demoroom', component: DemoRoom, index: 1},
+      {title: 'showroom', component: ShowRoom, index: 2}
     ];
 
     return <Navigator
@@ -89,7 +90,7 @@ class Main extends Component {
                     return <Text style={{fontWeight: "bold"}}> Gallery </Text>;
                   } else {
                     return <TouchableHighlight onPress={()=>{
-                        navigator.push({component: DemoRoom})
+                        navigator.push({component: DemoRoomv})
                       }}
                       style={styles.navBarButton}>
                         <Text> Gallery </Text>
@@ -102,7 +103,7 @@ class Main extends Component {
                   </Text>;
               } else {
                 return <TouchableHighlight onPress={()=>{
-                      navigator.push({component: Profile})
+                      navigator.push({component: DemoRoom})
                     }}
                     style={styles.navBarButton}>
                     <Text> Profile </Text>
