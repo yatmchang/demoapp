@@ -27,12 +27,16 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  preview: {
-    flex: 30
+  main: {
+    flex: 30,
+    height: 1
   },
   navbar: {
     backgroundColor: '#f9f2ec',
     height: 50,
-    top: 680
+    top: 690
+  },
+  navBarButton:{
+    alignItems: 'center'
   }
 });
