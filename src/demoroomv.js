@@ -12,7 +12,7 @@ import {
  } from 'react-native';
 var REQUEST_URL = 'http://localhost:3000/snaps.json';
 import ShowRoom from './showroom';
-var styles = require('./styles');
+import styles from './styles';
 
 export default class DemoRoomv extends Component {
   constructor(props) {
@@ -22,6 +22,8 @@ export default class DemoRoomv extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2
       })
     };
+
+    this.renderLook = this.renderLook.bind(this)
   }
 
   componentDidMount() {
@@ -32,6 +34,7 @@ export default class DemoRoomv extends Component {
         for(var i=0; i < responseJson.length; i++){
           tempArray.push(responseJson[i])
         }
+
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(tempArray),
         });
@@ -44,11 +47,12 @@ export default class DemoRoomv extends Component {
       <View style={styles.container}>
         <View style={styles.header}/>
         <View style={styles.main}>
-        <ListView
+          <ListView
+            removeClippedSubviews={false}
             dataSource={this.state.dataSource}
-            renderRow={(look) => this.renderLook(look)}
+            renderRow={this.renderLook}
             contentContainerStyle={styles.list}
-        />
+          />
         </View>
         <View style={styles.footer}/>
       </View>

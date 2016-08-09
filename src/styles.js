@@ -38,6 +38,12 @@ module.exports = StyleSheet.create({
     flex: 40,
     height: 1
   },
+  mainShow: {
+    flex: 40,
+    height: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   navbar: {
     backgroundColor: '#f9f2ec',
     height: 50,
@@ -59,5 +65,41 @@ module.exports = StyleSheet.create({
   },
   listView: {
       backgroundColor: '#fcfcfc'
+  },
+  containerShow: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fcfcfc',
+  },
+  card: {
+    width: 420,
+    height: 685
+  },
+  yup: {
+    borderColor: 'green',
+    borderWidth: 2,
+    position: 'absolute',
+    padding: 20,
+    bottom: 20,
+    borderRadius: 5,
+    right: 20,
+  },
+  yupText: {
+    fontSize: 16,
+    color: 'green',
+  },
+  nope: {
+    borderColor: 'red',
+    borderWidth: 2,
+    position: 'absolute',
+    bottom: 20,
+    padding: 20,
+    borderRadius: 5,
+    left: 20,
+  },
+  nopeText: {
+    fontSize: 16,
+    color: 'red',
   }
 });
