@@ -75,8 +75,9 @@ export default class DemoRoomv extends Component {
   showLookDetail(look) {
     this.props.navigator.push({
         component: ShowRoom,
-        look: look,
-        picture: look.picture.url
+        look: look.id,
+        picture: look.picture.url,
+        allPictures: this.state.dataSource._dataBlob.s1
     });
   }
 }

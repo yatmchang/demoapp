@@ -68,7 +68,7 @@ class Main extends Component {
 
 
   renderScene(route, navigator){
-    return createElement(route.component, {navigator: navigator, look: route.look, picture: route.picture})
+    return createElement(route.component, {navigator: navigator, look: route.look, picture: route.picture, allPictures: route.allPictures})
   }
 
   render(){

@@ -8,37 +8,31 @@ import {
   TouchableHighlight,
   ListView,
   Animated,
-  PanResponder
+  PanResponder,
+  Navigator
 } from 'react-native';
 var styles = require('./styles');
 var clamp = require('clamp');
 var SWIPE_THRESHOLD = 100;
 var LIKE = 1;
 var DISLIKE = -1;
+import DemoRoomv from './demoroomv';
 
 export default class ShowRoom extends Component {
 
   constructor(props) {
     super(props);
-
+    const AllSnaps = this.props.allPictures;
     this.state = {
       pan: new Animated.ValueXY(),
       enter: new Animated.Value(0.5),
       snap: this.props.picture,
+      look: this.props.look
     }
   }
 
   componentDidMount() {
     this._animateEntrance();
-  }
-
-  _goToNextSnap() {
-    let currentSnapIdx = People.indexOf(this.state.snap);
-    let newIdx = currentSnapIdx + 1;
-
-    this.setState({
-      person: People[newIdx > People.length - 1 ? 0 : newIdx]
-    });
   }
 
   _animateEntrance() {
@@ -49,9 +43,9 @@ export default class ShowRoom extends Component {
   }
 
   _resetState() {
-    this.state.pan.setValue({x: 0, y: 0});
-    this.state.enter.setValue(0);
     this._animateEntrance();
+    this.props.navigator.push({
+        component: DemoRoomv})
   }
 
   componentWillMount() {
@@ -77,29 +71,64 @@ export default class ShowRoom extends Component {
         } else if (vx < 0) {
           velocity = clamp(vx * -1, 3, 5) * -1;
         }
-
-        if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
-          Animated.decay(this.state.pan, {
-            velocity: {x: velocity, y: vy},
-            deceleration: 0.98
-          }).start(this._resetState)
-        } else {
-          Animated.spring(this.state.pan, {
-            toValue: {x: 0, y: 0},
-            friction: 4
-          }).start()
+        if (vx >=0){
+          if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
+            Animated.decay(this.state.pan, {
+              velocity: {x: velocity, y: vy},
+              deceleration: 0.98
+            }).start(this._resetState.bind(this))
+            this.likeSnap();
+          } else {
+            Animated.spring(this.state.pan, {
+              toValue: {x: 0, y: 0},
+              friction: 4
+            }).start()
+          }
+        } else if (vx < 0){
+          if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
+            Animated.decay(this.state.pan, {
+              velocity: {x: velocity, y: vy},
+              deceleration: 0.98
+            }).start(this._resetState.bind(this))
+            this.dislikeSnap();
+          } else {
+            Animated.spring(this.state.pan, {
+              toValue: {x: 0, y: 0},
+              friction: 4
+            }).start()
+          }
         }
       }
     })
   }
 
+  likeSnap(){
+    fetch(`http://localhost:3000/api/v1/snaps/${this.state.look}/like`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+  }
+
+  dislikeSnap(){
+    console.log("here")
+    fetch(`http://localhost:3000/api/v1/snaps/${this.state.look}/dislike`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+  }
 
   render() {
     let { pan, enter, } = this.state;
 
     let [translateX, translateY] = [pan.x, pan.y];
 
-    let rotate = pan.x.interpolate({inputRange: [-200, 0, 200], outputRange: ["-30deg", "0deg", "30deg"]});
+      let rotate = pan.x.interpolate({inputRange: [-200, 0, 200], outputRange: ["-30deg", "0deg", "30deg"]});
     let opacity = pan.x.interpolate({inputRange: [-200, 0, 200], outputRange: [0.5, 1, 0.5]})
     let scale = enter;
 
