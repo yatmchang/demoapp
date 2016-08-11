@@ -77,7 +77,8 @@ export default class DemoRoomv extends Component {
         component: ShowRoom,
         look: look.id,
         picture: look.picture.url,
-        allPictures: this.state.dataSource._dataBlob.s1
+        like: look.like_count,
+        dislike: look.dislike_count
     });
   }
 }

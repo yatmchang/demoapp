@@ -1,8 +1,7 @@
 import React, { Component, createElement } from 'react';
-import { Navigator, NavBar, View, TouchableHighlight, Text } from 'react-native';
+import { Navigator, Image, NavBar, View, TouchableHighlight, Text } from 'react-native';
 var styles = require('./styles');
 import DemoRoom from './demoroom';
-import Profile from './profile';
 import ImagePicker from 'react-native-image-picker';
 var Platform = require('react-native').Platform;
 import DemoRoomv from './demoroomv';
@@ -57,18 +56,16 @@ class Main extends Component {
   }
   uploadButton() {
     return <TouchableHighlight
-    underlayColor='gray'
+    underlayColor='#f9f2ec'
     onPress={ () => this.picker() }
     style={styles.button}>
-      <Text style={{color:'#9a8d72'}}>
-        Upload
-      </Text>
+      <Image source={require('./logo.png')} style={styles.logo}/>
     </TouchableHighlight>
   }
 
 
   renderScene(route, navigator){
-    return createElement(route.component, {navigator: navigator, look: route.look, picture: route.picture, allPictures: route.allPictures})
+    return createElement(route.component, {navigator: navigator, look: route.look, picture: route.picture, like: route.like, dislike: route.dislike})
   }
 
   render(){
@@ -89,12 +86,12 @@ class Main extends Component {
                 { if (route.index === 0) {
                     return <Text style={{fontWeight: "bold"}}> Gallery </Text>;
                   } else {
-                    return <TouchableHighlight onPress={()=>{
-                        navigator.push({component: DemoRoomv})
-                      }}
-                      style={styles.navBarButton}>
-                        <Text> Gallery </Text>
-                      </TouchableHighlight>
+                    return <TouchableHighlight
+                      onPress={()=>{navigator.push({component: DemoRoomv})}}
+                      style={styles.navBarButton}
+                      underlayColor="#f9f2ec">
+                      <Text> Gallery </Text>
+                    </TouchableHighlight>
                   }
                 },
               RightButton: (route, navigator, index) =>
@@ -102,12 +99,12 @@ class Main extends Component {
                   return <Text style={{fontWeight: "bold"}}> Profile
                   </Text>;
               } else {
-                return <TouchableHighlight onPress={()=>{
-                      navigator.push({component: DemoRoom})
-                    }}
-                    style={styles.navBarButton}>
-                    <Text> Profile </Text>
-                  </TouchableHighlight>
+                return <TouchableHighlight
+                  onPress={()=>{navigator.push({component: DemoRoom})}}
+                  style={styles.navBarButton}
+                  underlayColor="#f9f2ec">
+                  <Text> Profile </Text>
+                </TouchableHighlight>
                 }
               },
               Title: (route, navigator, index, navState) =>
