@@ -28,6 +28,11 @@ module.exports = StyleSheet.create({
   footer: {
     flex: 2
   },
+  logo: {
+    width: 30,
+    height: 30,
+    bottom: 10
+  },
   button: {
     flex: 3,
     backgroundColor: '#f9f2ec',
@@ -39,8 +44,14 @@ module.exports = StyleSheet.create({
     height: 1
   },
   mainShow: {
-    flex: 40,
+    flex: 38,
     height: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  likebar:{
+    flex: 2,
+    backgroundColor: '#f9f2ec',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -74,7 +85,7 @@ module.exports = StyleSheet.create({
   },
   card: {
     width: 420,
-    height: 685
+    height: 649
   },
   yup: {
     borderColor: 'green',

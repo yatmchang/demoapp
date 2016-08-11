@@ -113,7 +113,6 @@ export default class ShowRoom extends Component {
   }
 
   dislikeSnap(){
-    console.log("here")
     fetch(`http://localhost:3000/api/v1/snaps/${this.state.look}/dislike`, {
       method: 'POST',
       headers: {
@@ -157,6 +156,9 @@ export default class ShowRoom extends Component {
           <Animated.View style={[styles.yup, animatedYupStyles]}>
             <Text style={styles.yupText}>In!</Text>
           </Animated.View>
+        </View>
+        <View style={styles.likebar}>
+        <Text> Dislike(s): {this.props.dislike} Like(s): {this.props.like} </Text>
         </View>
         <View style={styles.footer} />
       </View>
