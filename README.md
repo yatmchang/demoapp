@@ -21,5 +21,5 @@ https://github.com/yatmchang/demo
 Status: Not deployed
 
 ## Sample Pictures
-![Pic 1](/1.png?raw=true)
-![Pic 2](/2.png?raw=true)
+![Pic 1](/5.png?raw=true)
+![Pic 2](/6.png?raw=true)
