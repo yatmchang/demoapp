@@ -13,6 +13,8 @@ import {
 var REQUEST_URL = 'http://localhost:3000/snaps.json';
 import ShowRoom from './showroom';
 import styles from './styles';
+import ImagePicker from 'react-native-image-picker';
+var Platform = require('react-native').Platform;
 
 export default class DemoRoomv extends Component {
   constructor(props) {
@@ -20,10 +22,62 @@ export default class DemoRoomv extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
-      })
+      }),
+      avatarSource: null
     };
 
     this.renderLook = this.renderLook.bind(this)
+  }
+
+  picker() {
+    var options = {
+      title: 'Select Fit',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else {
+        const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+        if (Platform.OS === 'ios') {
+          var source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        } else {
+          var source = {uri: response.uri, isStatic: true};
+        }
+
+        this.setState({
+          avatarSource: source
+        });
+
+        fetch('http://localhost:3000/api/v1/snaps', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            picture: 'data:image/jpeg;base64,' + response.data
+          })
+        })
+      }
+    });
+  }
+  uploadButton() {
+    return <TouchableHighlight
+    underlayColor='#f9f2ec'
+    onPress={ () => this.picker() }
+    style={styles.button2}>
+      <Text>  </Text>
+    </TouchableHighlight>
   }
 
   componentDidMount() {
@@ -46,6 +100,9 @@ export default class DemoRoomv extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}/>
+        <View style={styles.header}>
+          <View>{this.uploadButton()}</View>
+        </View>
         <View style={styles.main}>
           <ListView
             removeClippedSubviews={false}

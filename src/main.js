@@ -84,7 +84,12 @@ class Main extends Component {
             routeMapper={{
               LeftButton: (route, navigator, index) =>
                 { if (route.index === 0) {
-                    return <Text style={{fontWeight: "bold"}}> Gallery </Text>;
+                  return <TouchableHighlight
+                    onPress={()=>{navigator.push({component: DemoRoomv})}}
+                    style={styles.navBarButton}
+                    underlayColor="#f9f2ec">
+                    <Text> Gallery </Text>
+                  </TouchableHighlight>;
                   } else {
                     return <TouchableHighlight
                       onPress={()=>{navigator.push({component: DemoRoomv})}}

@@ -70,7 +70,7 @@ export default class DemoRoom extends Component {
     return (<View style={styles.container}>
       <View style={styles.header}/>
       <View style={styles.main}>
-      <ScrollView
+        <ScrollView
           ref={(scrollView) => { _scrollView = scrollView; }}
           automaticallyAdjustContentInsets={false}
           scrollEventThrottle={200}
