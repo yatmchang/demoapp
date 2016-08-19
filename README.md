@@ -17,6 +17,9 @@ By using Marc Shilling's package (https://github.com/marcshilling/react-native-i
 
 ## Web App GitHub
 https://github.com/yatmchang/demo
+
 Status: Not deployed
 
 ## Sample Pictures
+![Pic 1](/1.png?raw=true)
+![Pic 2](/2.png?raw=true)
